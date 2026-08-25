@@ -20,8 +20,8 @@
      Fyll i dina Supabase-uppgifter nedan. anon-nyckeln är säker att ha
      här i klartext SÅ LÄNGE Row Level Security är påslaget på tabellen
      (se DEPLOY.md). Utan RLS kan vem som helst skriva till databasen. */
-  var SUPABASE_URL      = "https://DITT-PROJEKT.supabase.co";
-  var SUPABASE_ANON_KEY = "DIN-ANON-NYCKEL";
+  var SUPABASE_URL      = "https://kvhfqedtjtlzrgmajuqq.supabase.co";
+  var SUPABASE_ANON_KEY = "sb_publishable_0lwYtUVCBWNceqcUD8P3OQ_BB0gSfrp";
   var TABLE             = "assignments";
   /* =============================================================== */
 
