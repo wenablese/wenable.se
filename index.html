@@ -1,0 +1,623 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Wenable Consulting AB — Specialist consultants in AI &amp; cybersecurity</title>
+<link rel="stylesheet" href="assets/wenable.css">
+<style>
+html, body { height: 100%; }
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* NAV — minimal, transparent over hero */
+.home-nav {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  z-index: 20;
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+.home-nav .nav-inner { height: 84px; }
+.home-nav .nav-links { gap: 32px; }
+.home-nav .nav-links a {
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted-2);
+  transition: color .2s;
+}
+.home-nav .nav-links a:hover { color: var(--ink); }
+.home-nav .nav-meta {
+  font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--muted);
+  display: inline-flex; align-items: center; gap: 12px;
+}
+.home-nav .nav-meta .pulse {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--orange);
+  box-shadow: 0 0 0 4px rgba(243,144,25,0.18);
+}
+
+/* HERO */
+.home-hero {
+  position: relative;
+  flex: 1;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  isolation: isolate;
+  padding: 120px 24px 80px;
+}
+
+/* canvas background */
+#bg-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  display: block;
+}
+
+/* layered ambient glow */
+.bg-glow {
+  position: absolute; inset: 0; z-index: -1;
+  background:
+    radial-gradient(900px 520px at 50% 35%, rgba(243,144,25,0.10), transparent 60%),
+    radial-gradient(1100px 700px at 50% 110%, rgba(28,80,160,0.22), transparent 60%),
+    radial-gradient(700px 480px at 12% 18%, rgba(80,150,255,0.08), transparent 60%);
+  pointer-events: none;
+}
+
+/* grid wash */
+.bg-grid {
+  position: absolute; inset: 0; z-index: -1;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, #000 30%, transparent 85%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, #000 30%, transparent 85%);
+  pointer-events: none;
+}
+
+.hero-inner {
+  position: relative;
+  max-width: 1080px;
+  width: 100%;
+}
+
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 12px;
+  border: 1px solid var(--line-2);
+  border-radius: 999px;
+  padding: 8px 18px;
+  font-size: 12px; letter-spacing: 0.24em; text-transform: uppercase;
+  color: var(--muted-2);
+  margin-bottom: 36px;
+  background: rgba(10,22,40,0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.hero-eyebrow .dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--orange); box-shadow: 0 0 0 4px rgba(243,144,25,0.18);
+}
+
+/* rotating headline — two lines, dynamic word centered below */
+.headline {
+  font-weight: 700;
+  font-size: clamp(44px, 7.4vw, 104px);
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--ink);
+}
+.headline .static-line {
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.22em;
+  white-space: nowrap;
+  transition: gap .35s ease;
+}
+.headline .static-line.is-tight { gap: 0; }
+.headline .prefix    { color: var(--ink); }
+.headline .connector {
+  color: var(--ink);
+  display: inline-block;
+  transition: opacity .35s ease, max-width .35s ease, margin .35s ease;
+  overflow: hidden;
+}
+.headline .connector.is-fading { opacity: 0; }
+.headline .connector.is-hidden {
+  opacity: 0;
+  max-width: 0;
+  margin-left: -0.22em;
+}
+
+.headline .swap-line {
+  position: relative;
+  display: block;
+  margin-top: 0.18em;
+  /* reserve vertical space so the line never collapses during the swap */
+  min-height: 1.04em;
+  overflow: hidden;
+}
+.headline .swap {
+  display: inline-block;
+  color: var(--orange);
+  text-shadow: 0 4px 32px rgba(243,144,25,0.35);
+  white-space: nowrap;
+  will-change: transform, opacity;
+}
+.headline .swap.is-shout {
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+.headline .swap.is-out {
+  animation: swapOut .42s cubic-bezier(.55,.05,.55,.05) forwards;
+}
+.headline .swap.is-in {
+  animation: swapIn .5s cubic-bezier(.2,.7,.25,1) forwards;
+}
+@keyframes swapOut {
+  0%   { transform: translateY(0);     opacity: 1; }
+  100% { transform: translateY(-44%);  opacity: 0; }
+}
+@keyframes swapIn {
+  0%   { transform: translateY(44%);   opacity: 0; }
+  100% { transform: translateY(0);     opacity: 1; }
+}
+
+/* underline accent that ticks with the swap */
+.headline-underline {
+  margin: 36px auto 0;
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+}
+.headline-underline .bar {
+  width: 56px; height: 6px; background: var(--orange);
+  transform: skewX(-22deg);
+  opacity: 0.18;
+  transition: opacity .4s;
+}
+.headline-underline .bar.on { opacity: 1; }
+
+.hero-lede {
+  margin: 40px auto 0;
+  max-width: 760px;
+  font-size: clamp(16px, 1.4vw, 19px);
+  color: var(--muted-2);
+  line-height: 1.55;
+  min-height: 4.65em;
+  transition: opacity .32s ease;
+}
+.hero-lede.is-fading { opacity: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .hero-lede { transition: none; }
+}
+
+/* CTA row */
+.hero-cta {
+  margin: 56px auto 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+}
+.hero-cta .btn {
+  padding: 16px 26px;
+  font-size: 14px;
+  letter-spacing: 0.06em;
+}
+.hero-cta .btn-primary { box-shadow: 0 12px 40px -12px var(--orange-shadow); }
+.hero-cta .btn-ghost {
+  background: rgba(10,22,40,0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* tagline strip below CTAs */
+.hero-strip {
+  margin: 80px auto 0;
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  justify-content: center;
+  gap: 56px;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.hero-strip .it { display: inline-flex; align-items: center; gap: 10px; }
+.hero-strip .it::before {
+  content: ""; width: 6px; height: 6px;
+  background: var(--orange); opacity: 0.7;
+  transform: skewX(-22deg);
+}
+
+/* scroll cue */
+.scroll-cue {
+  position: absolute;
+  left: 50%; bottom: 28px;
+  transform: translateX(-50%);
+  font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase;
+  color: var(--muted);
+  display: inline-flex; align-items: center; gap: 12px;
+  pointer-events: none;
+}
+.scroll-cue::after {
+  content: ""; width: 1px; height: 26px;
+  background: linear-gradient(to bottom, var(--muted), transparent);
+  animation: cueDrop 2.4s ease-in-out infinite;
+}
+@keyframes cueDrop {
+  0%, 100% { transform: scaleY(0.4); transform-origin: top; opacity: 0.4; }
+  50%      { transform: scaleY(1); opacity: 1; }
+}
+
+/* foot */
+.home-foot {
+  border-top: 1px solid var(--line);
+  padding: 24px 0;
+  font-size: 12px; color: var(--muted);
+  letter-spacing: 0.06em;
+  background: rgba(10,22,40,0.6);
+  position: relative;
+  z-index: 5;
+}
+.home-foot .wrap {
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 16px;
+}
+.home-foot a { color: var(--muted-2); transition: color .2s; }
+.home-foot a:hover { color: var(--orange); }
+.home-foot .ff-links { display: flex; gap: 24px; }
+
+@media (max-width: 960px) {
+  .home-nav .nav-links { display: none; }
+  .home-nav .nav-meta  { display: none; }
+  .hero-strip { grid-template-columns: repeat(2, auto); gap: 16px 32px; }
+  .hero-cta .btn { padding: 14px 20px; }
+  .home-hero { padding-top: 100px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .headline .swap.is-out, .headline .swap.is-in { animation: none !important; }
+  #bg-canvas { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<template id="__bundler_thumbnail" data-bg-color="#0A1628">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#0A1628"/>
+    <!-- W -->
+    <path d="M300 270 L360 530 L430 360 L500 530 L560 270 L505 270 L468 430 L430 320 L392 430 L355 270 Z" fill="#F39019"/>
+    <!-- E (slanted bars) -->
+    <g fill="#FFFFFF">
+      <path d="M650 270 L860 270 L848 318 L638 318 Z"/>
+      <path d="M632 376 L818 376 L806 424 L620 424 Z"/>
+      <path d="M614 482 L860 482 L848 530 L602 530 Z"/>
+    </g>
+  </svg>
+</template>
+
+<header class="nav home-nav">
+  <div class="wrap nav-inner">
+    <a href="index.html" class="logo-link" aria-label="Wenable Consulting AB — home">
+      <img src="assets/wenable-logo-full.png" alt="Wenable Consulting AB" class="logo-full">
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="For Clients.html" class="auth-gated" data-sv="Våra tjänster">Our Services</a>
+      <a href="For Consultants.html" class="auth-gated" data-sv="För specialister">For Specialists</a>
+      <a href="assignments.html" data-sv="Uppdrag">Assignments</a>
+      <a href="Wenable are us.html" class="auth-gated" data-sv="Wenable är vi">Wenable are us</a>
+      <a href="mailto:hello&#64;wenable.se" data-sv="Kontakt">Contact</a>
+    </nav>
+    <div class="nav-meta">
+      <span class="pulse" aria-hidden="true"></span>
+      <span data-sv="Göteborg">Gothenburg</span>
+      <div class="lang-switch" role="group" aria-label="Language / Språk">
+        <button type="button" data-lang-btn="sv">SV</button>
+        <button type="button" data-lang-btn="en">EN</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<main class="home-hero">
+  <canvas id="bg-canvas" aria-hidden="true"></canvas>
+  <div class="bg-glow" aria-hidden="true"></div>
+  <div class="bg-grid" aria-hidden="true"></div>
+
+  <div class="hero-inner">
+    <div class="hero-eyebrow"><span class="dot"></span><span data-sv="Wenable Consulting AB &middot; AI &amp; Cybersäkerhet">Wenable Consulting AB &middot; AI &amp; Cybersecurity</span></div>
+
+    <h1 class="headline" aria-live="polite">
+      <span class="static-line">
+        <span class="prefix">We enable</span>
+        <span class="connector" id="connector">your</span>
+      </span>
+      <span class="swap-line"><span class="swap" id="swap">AI</span></span>
+    </h1>
+
+    <div class="headline-underline" aria-hidden="true">
+      <span class="bar" data-i="0"></span>
+      <span class="bar" data-i="1"></span>
+      <span class="bar" data-i="2"></span>
+      <span class="bar" data-i="3"></span>
+      <span class="bar" data-i="4"></span>
+      <span class="bar" data-i="5"></span>
+    </div>
+
+    <p class="hero-lede" id="hero-lede">
+      Senior AI specialists — applied ML, GenAI and evaluation — embedded with the teams
+      shipping it to production. Engineering-led, named profiles, cleared and NDA-ready.
+    </p>
+
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="mailto:hello&#64;wenable.se" data-sv="Kontakta oss <span class=&quot;arr&quot;>→</span>">Get in touch <span class="arr">→</span></a>
+      <a class="btn btn-ghost" href="assignments.html" data-sv="Utforska uppdrag <span class=&quot;arr&quot;>→</span>">Explore assignments <span class="arr">→</span></a>
+      <a class="btn btn-ghost auth-gated" href="For Clients.html" data-sv="Utforska tjänster <span class=&quot;arr&quot;>→</span>">Explore services <span class="arr">→</span></a>
+    </div>
+
+    <div class="hero-strip">
+      <span class="it" data-sv="över 100 tillgängliga specialister">~120 specialists</span>
+      <span class="it" data-sv="12+ års medianerfarenhet">12+ yrs median</span>
+    </div>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="home-foot">
+  <div class="wrap">
+    <div data-sv="© 2026 Wenable Consulting AB · Org.nr 559571-3164 · Göteborg">© 2026 Wenable Consulting AB · Org. nr 559571-3164 · Gothenburg</div>
+    <div class="ff-links">
+      <a href="For Clients.html" data-sv="Tjänster">Services</a>
+      <a href="assignments.html" data-sv="Uppdrag">Assignments</a>
+      <a href="For Consultants.html" data-sv="Specialister">Specialists</a>
+      <a href="mailto:hello&#64;wenable.se">hello@wenable.se</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/i18n.js"></script>
+<script src="assets/admin.js"></script>
+<script>
+(function () {
+  // -------- Rotating headline --------
+  // Each phrase has an English (en) and Swedish (sv) variant:
+  //  prefix    — the white words before the rotating orange word
+  //  connector — the white word after the prefix (null hides it)
+  //  word      — the orange rotating word
+  //  lede      — the supporting paragraph below the headline
+  //  shout     — render the orange word in uppercase
+  // The final phrase ("you!") intentionally stays English in both languages.
+  var phrases = [
+    { sv: { prefix: "Vi möjliggör", connector: "din", word: "AI",
+            lede: "Seniora AI-specialister – tillämpad ML, GenAI och utvärdering – som sitter tillsammans med teamen som sätter det i produktion. Ingenjörsdrivet, namngivna profiler, säkerhetsprövade och klara för NDA." },
+      en: { prefix: "We enable", connector: "your", word: "AI",
+            lede: "Senior AI specialists — applied ML, GenAI and evaluation — embedded with the teams shipping it to production. Engineering-led, named profiles, cleared and NDA-ready." } },
+    { sv: { prefix: "Vi möjliggör", connector: "din", word: "cybersäkerhet",
+            lede: "Meriterade specialister inom offensiv säkerhet, defensiv säkerhet och styrning, placerade i din miljö där risken faktiskt finns. Säkerhetsprövade och klara för NDA." },
+      en: { prefix: "We enable", connector: "your", word: "cyber security",
+            lede: "Offensive, defensive and governance specialists who've earned the credentials — placed inside your environment, on the risk that actually matters. Cleared and NDA-ready." } },
+    { sv: { prefix: "Vi möjliggör", connector: "dina", word: "produkter",
+            lede: "Seniora produkt- och utvecklingsprofiler som gör en roadmap till något användarna faktiskt får i handen. Från idé till lansering, samma personer som du fick förtroende för, hela vägen in i mål." },
+      en: { prefix: "We enable", connector: "your", word: "products",
+            lede: "Senior product and engineering minds who turn a roadmap into something users actually get. From discovery to launch, owned by the people you met in the pitch." } },
+    { sv: { prefix: "Vi möjliggör", connector: "din", word: "utveckling",
+            lede: "Pragmatiska, seniora ingenjörer för bygget som måste hålla – arkitektur, leverans och det utmanande integrationsarbetet. Inga ersättningar av personer under resans gång." },
+      en: { prefix: "We enable", connector: "your", word: "development",
+            lede: "Hands-on senior engineers for the build that has to hold — architecture, delivery and the hard integration work. No bench, no bait-and-switch." } },
+    { sv: { prefix: "Vi möjliggör", connector: "din", word: "strategi",
+            lede: "Oberoende seniora rådgivare för de besluten som kan vara kostsamma – målarkitektur, leverantörsval och AI- och säkerhetsstrategier du kan stå för." },
+      en: { prefix: "We enable", connector: "your", word: "strategy",
+            lede: "Independent senior advisors for the decisions that are expensive to get wrong — target architecture, vendor selection, and AI and security roadmaps you can defend." } },
+    { shout: true,
+      sv: { prefix: "Vi möjliggör", connector: null, word: "dig!",
+            lede: "Vad du än vill göra möjligt härnäst, matchar vi dig med den seniora specialisten som redan gjort det – namngiven, ansvarig och redo att börja. Det är vårt löfte." },
+      en: { prefix: "We enable", connector: null, word: "you!",
+            lede: "Whatever you're enabling next, we pair you with the senior specialist who has done it before — named, accountable and ready to start. That's the whole offering." } }
+  ];
+  function L(idx) {
+    var lng = (window.WenableLang && window.WenableLang.get()) || "en";
+    return phrases[idx][lng] || phrases[idx].en;
+  }
+  var swapEl      = document.getElementById("swap");
+  var connectorEl = document.getElementById("connector");
+  var prefixEl    = document.querySelector(".headline .prefix");
+  var ledeEl      = document.getElementById("hero-lede");
+  var staticLineEl = document.querySelector(".headline .static-line");
+  var bars = document.querySelectorAll(".headline-underline .bar");
+  var i = 0;
+
+  function setActiveBar(idx) {
+    bars.forEach(function (b) {
+      b.classList.toggle("on", parseInt(b.dataset.i, 10) === idx);
+    });
+  }
+  setActiveBar(0);
+  applyPhrase(0);
+
+  var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function applyPhrase(idx) {
+    var p = L(idx);
+    prefixEl.textContent = p.prefix;
+    swapEl.textContent = p.word;
+    swapEl.classList.toggle("is-shout", !!phrases[idx].shout);
+    if (p.lede) ledeEl.textContent = p.lede;
+    if (p.connector) {
+      connectorEl.textContent = p.connector;
+      connectorEl.classList.remove("is-hidden");
+      staticLineEl.classList.remove("is-tight");
+    } else {
+      connectorEl.classList.add("is-hidden");
+      staticLineEl.classList.add("is-tight");
+    }
+  }
+
+  // Re-render the current phrase when the language is switched.
+  window.addEventListener("wenable:langchange", function () { applyPhrase(i); });
+
+  function rotate() {
+    var next = (i + 1) % phrases.length;
+    var prev = L(i);
+    var nxt  = L(next);
+    var connectorChanges = prev.connector !== nxt.connector;
+
+    if (reduced) {
+      applyPhrase(next);
+      i = next;
+      setActiveBar(i);
+      return;
+    }
+    swapEl.classList.remove("is-in");
+    swapEl.classList.add("is-out");
+    if (connectorChanges) connectorEl.classList.add("is-fading");
+    ledeEl.classList.add("is-fading");
+
+    setTimeout(function () {
+      applyPhrase(next);
+      swapEl.classList.remove("is-out");
+      swapEl.classList.add("is-in");
+      ledeEl.classList.remove("is-fading");
+      if (connectorChanges) {
+        requestAnimationFrame(function () {
+          connectorEl.classList.remove("is-fading");
+        });
+      }
+      i = next;
+      setActiveBar(i);
+    }, 420);
+  }
+  setInterval(rotate, 5000);
+
+  // -------- Animated network background --------
+  if (reduced) return;
+  var canvas = document.getElementById("bg-canvas");
+  var ctx = canvas.getContext("2d");
+  var dpr = Math.min(window.devicePixelRatio || 1, 2);
+  var W = 0, H = 0;
+  var nodes = [];
+  var NODE_COUNT, MAX_DIST;
+
+  function resize() {
+    W = canvas.clientWidth = window.innerWidth;
+    H = canvas.clientHeight = window.innerHeight;
+    canvas.width = W * dpr;
+    canvas.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    var area = W * H;
+    NODE_COUNT = Math.max(60, Math.min(160, Math.round(area / 14000)));
+    MAX_DIST = Math.min(W, H) * 0.18;
+    if (MAX_DIST < 140) MAX_DIST = 140;
+    if (MAX_DIST > 240) MAX_DIST = 240;
+
+    nodes = [];
+    for (var k = 0; k < NODE_COUNT; k++) {
+      var ang = Math.random() * Math.PI * 2;
+      var speed = 0.10 + Math.random() * 0.18;
+      nodes.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        vx: Math.cos(ang) * speed,
+        vy: Math.sin(ang) * speed,
+        r: Math.random() * 1.3 + 0.6,
+        hot: Math.random() < 0.07
+      });
+    }
+  }
+  window.addEventListener("resize", resize);
+  resize();
+
+  function tick() {
+    ctx.clearRect(0, 0, W, H);
+
+    // update node positions — steady linear drift with edge wrap.
+    // No cursor attraction, no clustering: keeps a uniform field with no zoom feel.
+    for (var n = 0; n < nodes.length; n++) {
+      var p = nodes[n];
+      p.x += p.vx;
+      p.y += p.vy;
+      if (p.x < -20) p.x = W + 20;
+      if (p.x > W + 20) p.x = -20;
+      if (p.y < -20) p.y = H + 20;
+      if (p.y > H + 20) p.y = -20;
+    }
+
+    // edges
+    for (var i2 = 0; i2 < nodes.length; i2++) {
+      var a = nodes[i2];
+      for (var j = i2 + 1; j < nodes.length; j++) {
+        var b = nodes[j];
+        var ddx = a.x - b.x, ddy = a.y - b.y;
+        var d2 = ddx * ddx + ddy * ddy;
+        if (d2 < MAX_DIST * MAX_DIST) {
+          var d = Math.sqrt(d2);
+          var t = 1 - d / MAX_DIST;
+          var alpha = t * t * 0.55;
+          var hot = a.hot || b.hot;
+          ctx.strokeStyle = hot
+            ? "rgba(243,144,25," + (alpha * 0.85).toFixed(3) + ")"
+            : "rgba(143,195,255," + (alpha * 0.55).toFixed(3) + ")";
+          ctx.lineWidth = hot ? 0.9 : 0.6;
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    // nodes on top
+    for (var m = 0; m < nodes.length; m++) {
+      var p2 = nodes[m];
+      if (p2.hot) {
+        ctx.fillStyle = "rgba(243,144,25,0.95)";
+        ctx.shadowBlur = 14;
+        ctx.shadowColor = "rgba(243,144,25,0.7)";
+      } else {
+        ctx.fillStyle = "rgba(220,232,248,0.75)";
+        ctx.shadowBlur = 6;
+        ctx.shadowColor = "rgba(160,200,255,0.35)";
+      }
+      ctx.beginPath();
+      ctx.arc(p2.x, p2.y, p2.r + (p2.hot ? 0.8 : 0), 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.shadowBlur = 0;
+
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,458 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CV — Erik Lindqvist · Wenable Consulting AB</title>
+<style>
+  :root {
+    --bg: #0A1628;
+    --bg-2: #0E1E36;
+    --bg-3: #122847;
+    --ink: #0B1A30;
+    --ink-soft: #33465f;
+    --muted: #5C6E86;
+    --line: #E3E8EF;
+    --line-dark: rgba(255,255,255,0.10);
+    --line-dark-2: rgba(255,255,255,0.16);
+    --paper: #FFFFFF;
+    --orange: #F39019;
+    --orange-2: #FFA94B;
+    --side-ink: #FFFFFF;
+    --side-muted: #9FB1C8;
+    --side-muted-2: #C2D0E2;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: #6c788c;
+    font-family: "Segoe UI", "Segoe UI Web (West European)", -apple-system, BlinkMacSystemFont, Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    line-height: 1.5;
+    padding: 32px 16px;
+  }
+
+  /* ---- A4 sheet ---- */
+  .sheet {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto;
+    background: var(--paper);
+    display: grid;
+    grid-template-columns: 74mm 1fr;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.35);
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* ============ SIDEBAR ============ */
+  .side {
+    background: var(--bg);
+    color: var(--side-ink);
+    padding: 0 0 9px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  /* network motif header */
+  .side-top {
+    position: relative;
+    padding: 24px 26px 20px;
+    overflow: hidden;
+    border-bottom: 1px solid var(--line-dark);
+  }
+  .side-net { position: absolute; inset: 0; opacity: 0.5; }
+  .side-glow {
+    position: absolute; inset: 0;
+    background: radial-gradient(120% 90% at 80% 0%, rgba(243,144,25,0.16), transparent 60%);
+  }
+  .photo-wrap {
+    position: relative;
+    width: 116px; height: 116px;
+    margin: 2px auto 0;
+  }
+  .photo-ring {
+    position: absolute; inset: -6px;
+    border: 1.5px solid var(--orange);
+    border-radius: 50%;
+    opacity: 0.55;
+  }
+  image-slot {
+    width: 116px; height: 116px;
+    display: block;
+    border: 1px solid var(--line-dark-2);
+    background: var(--bg-3);
+  }
+
+  /* sidebar sections */
+  .side-body { padding: 0 26px; }
+  .s-block { margin-top: 18px; }
+  .s-head {
+    font-size: 10.5px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--orange);
+    font-weight: 700;
+    margin: 0 0 10px;
+    display: flex; align-items: center; gap: 9px;
+  }
+  .s-head::after {
+    content: ""; flex: 1; height: 1px;
+    background: var(--line-dark-2);
+  }
+
+  .contact { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+  .contact li { display: flex; gap: 10px; align-items: flex-start; font-size: 12px; color: var(--side-muted-2); line-height: 1.35; }
+  .contact .ic { width: 14px; flex: none; margin-top: 1px; color: var(--orange); }
+  .contact a { color: inherit; text-decoration: none; }
+
+  .skills { display: flex; flex-direction: column; gap: 10px; }
+  .skill .skill-row { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 5px; color: var(--side-muted-2); }
+  .skill .skill-row b { font-weight: 600; color: var(--side-ink); }
+  .skill .bar { height: 4px; background: rgba(255,255,255,0.10); position: relative; }
+  .skill .bar > i { position: absolute; left: 0; top: 0; bottom: 0; background: linear-gradient(90deg, var(--orange), var(--orange-2)); }
+
+  .taglist { display: flex; flex-wrap: wrap; gap: 6px; }
+  .taglist span {
+    font-size: 10.5px; letter-spacing: 0.04em;
+    padding: 4px 9px;
+    border: 1px solid var(--line-dark-2);
+    color: var(--side-muted-2);
+  }
+
+  .langs { display: flex; flex-direction: column; gap: 9px; }
+  .lang { font-size: 12px; }
+  .lang .lang-row { display: flex; justify-content: space-between; color: var(--side-muted-2); margin-bottom: 5px; }
+  .lang .lang-row b { color: var(--side-ink); font-weight: 600; }
+  .dots { display: flex; gap: 4px; }
+  .dots i { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.16); }
+  .dots i.on { background: var(--orange); }
+
+  .certs { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 9px; }
+  .certs li { font-size: 12px; color: var(--side-muted-2); padding-left: 14px; position: relative; line-height: 1.35; }
+  .certs li::before { content: ""; position: absolute; left: 0; top: 6px; width: 5px; height: 5px; background: var(--orange); }
+  .certs .yr { display: block; font-size: 10.5px; color: var(--side-muted); letter-spacing: 0.04em; margin-top: 1px; }
+
+  .side-logo { margin-top: auto; padding: 20px 26px 0; }
+  .side-logo img { width: 138px; opacity: 0.95; }
+  .side-logo .orgno { font-size: 10px; letter-spacing: 0.14em; color: var(--side-muted); margin-top: 10px; text-transform: uppercase; }
+
+  /* ============ MAIN ============ */
+  .main { padding: 22px 34px 10px; background: var(--paper); }
+  .name {
+    font-size: 32px; line-height: 1.02; font-weight: 700;
+    letter-spacing: -0.02em; margin: 0; color: var(--ink);
+  }
+  .name b { color: var(--orange); font-weight: 700; }
+  .role {
+    margin: 8px 0 0;
+    font-size: 12.5px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--muted); font-weight: 600;
+  }
+  .rule { height: 3px; width: 54px; background: var(--orange); margin: 13px 0 0; }
+
+  .m-block { margin-top: 13px; }
+  .m-head {
+    font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--ink); font-weight: 700;
+    display: flex; align-items: center; gap: 12px;
+    margin: 0 0 9px;
+  }
+  .m-head .tick { width: 7px; height: 7px; background: var(--orange); flex: none; }
+  .m-head::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+
+  .lede { font-size: 12.5px; line-height: 1.5; color: var(--ink-soft); margin: 0; }
+  .lede strong { color: var(--ink); font-weight: 600; }
+
+  /* timeline */
+  .timeline { position: relative; padding-left: 22px; }
+  .timeline::before { content: ""; position: absolute; left: 4px; top: 4px; bottom: 4px; width: 1.5px; background: var(--line); }
+  .job { position: relative; padding-bottom: 11px; }
+  .job:last-child { padding-bottom: 0; }
+  .job::before {
+    content: ""; position: absolute; left: -22px; top: 4px;
+    width: 9px; height: 9px; border-radius: 50%;
+    background: var(--orange); box-shadow: 0 0 0 3px rgba(243,144,25,0.16);
+  }
+  .job-top { display: flex; justify-content: space-between; align-items: baseline; gap: 14px; }
+  .job-title { font-size: 14.5px; font-weight: 700; color: var(--ink); margin: 0; }
+  .job-co { font-size: 12.5px; color: var(--orange); font-weight: 600; margin: 2px 0 0; }
+  .job-when { font-size: 11px; letter-spacing: 0.1em; color: var(--muted); white-space: nowrap; text-transform: uppercase; font-weight: 600; }
+  .job-desc { font-size: 12px; line-height: 1.45; color: var(--ink-soft); margin: 6px 0 0; }
+  .job-pts { margin: 6px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 4px; }
+  .job-pts li { font-size: 12px; line-height: 1.38; color: var(--ink-soft); padding-left: 15px; position: relative; }
+  .job-pts li::before { content: ""; position: absolute; left: 0; top: 7px; width: 5px; height: 1.5px; background: var(--orange); }
+
+  /* assignments cards */
+  .assigns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .acard { border: 1px solid var(--line); border-left: 2px solid var(--orange); padding: 9px 12px; }
+  .acard h4 { font-size: 12.5px; margin: 0; color: var(--ink); font-weight: 700; }
+  .acard .acard-meta { font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin: 4px 0 7px; font-weight: 600; }
+  .acard p { font-size: 11.5px; line-height: 1.45; color: var(--ink-soft); margin: 0; }
+
+  /* education */
+  .edu { display: flex; flex-direction: column; gap: 9px; }
+  .edu-row { display: flex; justify-content: space-between; align-items: baseline; gap: 14px; }
+  .edu-row .deg { font-size: 13px; font-weight: 700; color: var(--ink); margin: 0; }
+  .edu-row .sch { font-size: 12px; color: var(--ink-soft); margin: 2px 0 0; }
+  .edu-row .yr { font-size: 11px; letter-spacing: 0.1em; color: var(--muted); white-space: nowrap; text-transform: uppercase; font-weight: 600; }
+
+  /* ---- print ---- */
+  @page { size: A4; margin: 0; }
+  @media print {
+    body { background: #fff; padding: 0; }
+    .sheet { box-shadow: none; width: 210mm; min-height: 297mm; }
+    .editbar { display: none !important; }
+    .side, .acard, .skill .bar > i, .job::before { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+  html, body, .side { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  /* edit hint */
+  .editbar {
+    position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%);
+    background: var(--bg-2); color: var(--side-muted-2);
+    border: 1px solid var(--line-dark-2);
+    font-size: 12px; padding: 9px 16px; z-index: 40;
+    display: flex; align-items: center; gap: 8px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+  }
+  .editbar b { color: var(--orange); font-weight: 600; }
+</style>
+</head>
+<body>
+
+<div class="sheet">
+
+  <!-- ===================== SIDEBAR ===================== -->
+  <aside class="side">
+    <div class="side-top">
+      <svg class="side-net" viewBox="0 0 300 220" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <g stroke="#8FC3FF" stroke-width="0.6" opacity="0.5">
+          <line x1="30" y1="20" x2="120" y2="60"/>
+          <line x1="120" y1="60" x2="60" y2="130"/>
+          <line x1="120" y1="60" x2="210" y2="40"/>
+          <line x1="210" y1="40" x2="270" y2="110"/>
+          <line x1="60" y1="130" x2="150" y2="170"/>
+          <line x1="150" y1="170" x2="270" y2="110"/>
+          <line x1="210" y1="40" x2="150" y2="170"/>
+          <line x1="30" y1="20" x2="60" y2="130"/>
+        </g>
+        <g fill="#DCE8F8">
+          <circle cx="30" cy="20" r="2.2"/>
+          <circle cx="60" cy="130" r="2.2"/>
+          <circle cx="150" cy="170" r="2.2"/>
+          <circle cx="270" cy="110" r="2.2"/>
+        </g>
+        <g fill="#F39019">
+          <circle cx="120" cy="60" r="3"/>
+          <circle cx="210" cy="40" r="3"/>
+        </g>
+      </svg>
+      <div class="side-glow"></div>
+      <div class="photo-wrap">
+        <div class="photo-ring"></div>
+        <image-slot id="cv-headshot" shape="circle" placeholder="Drop headshot"></image-slot>
+      </div>
+    </div>
+
+    <div class="side-body">
+      <div class="s-block">
+        <h3 class="s-head">Contact</h3>
+        <ul class="contact">
+          <li><span class="ic">✉</span><a href="mailto:erik.lindqvist@wenable.se">erik.lindqvist@wenable.se</a></li>
+          <li><span class="ic">☎</span><span>+46 70 412 88 30</span></li>
+          <li><span class="ic">⌖</span><span>Gothenburg, Sweden</span></li>
+          <li><span class="ic">in</span><span>linkedin.com/in/eriklindqvist</span></li>
+          <li><span class="ic">◷</span><span>Available Q4 2026 · On-site &amp; hybrid</span></li>
+        </ul>
+      </div>
+
+      <div class="s-block">
+        <h3 class="s-head">Core competencies</h3>
+        <div class="skills">
+          <div class="skill">
+            <div class="skill-row"><b>Applied AI / LLM systems</b><span>Expert</span></div>
+            <div class="bar"><i style="width:95%"></i></div>
+          </div>
+          <div class="skill">
+            <div class="skill-row"><b>Cloud &amp; data platforms</b><span>Expert</span></div>
+            <div class="bar"><i style="width:90%"></i></div>
+          </div>
+          <div class="skill">
+            <div class="skill-row"><b>Cybersecurity architecture</b><span>Advanced</span></div>
+            <div class="bar"><i style="width:82%"></i></div>
+          </div>
+          <div class="skill">
+            <div class="skill-row"><b>MLOps &amp; platform eng.</b><span>Advanced</span></div>
+            <div class="bar"><i style="width:80%"></i></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="s-block">
+        <h3 class="s-head">Tools &amp; tech</h3>
+        <div class="taglist">
+          <span>Python</span><span>PyTorch</span><span>LangChain</span><span>Azure</span>
+          <span>AWS</span><span>Kubernetes</span><span>Terraform</span><span>Snowflake</span>
+          <span>Kafka</span><span>Go</span><span>NIST CSF</span><span>ISO 27001</span>
+        </div>
+      </div>
+
+      <div class="s-block">
+        <h3 class="s-head">Languages</h3>
+        <div class="langs">
+          <div class="lang">
+            <div class="lang-row"><b>Swedish</b><span>Native</span></div>
+            <div class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div>
+          </div>
+          <div class="lang">
+            <div class="lang-row"><b>English</b><span>Fluent</span></div>
+            <div class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div>
+          </div>
+          <div class="lang">
+            <div class="lang-row"><b>German</b><span>Professional</span></div>
+            <div class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="s-block">
+        <h3 class="s-head">Certifications</h3>
+        <ul class="certs">
+          <li>AWS Certified Solutions Architect — Professional<span class="yr">2024</span></li>
+          <li>CISSP — Certified Information Systems Security Professional<span class="yr">2022</span></li>
+          <li>Azure AI Engineer Associate<span class="yr">2023</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="side-logo">
+      <img src="cv/wenable-logo-full.png" alt="Wenable Consulting AB" />
+      <div class="orgno">Org. nr 559571-3164</div>
+    </div>
+  </aside>
+
+  <!-- ===================== MAIN ===================== -->
+  <main class="main">
+    <header>
+      <h1 class="name">Erik <b>Lindqvist</b></h1>
+      <p class="role">Senior AI &amp; Cybersecurity Consultant</p>
+      <div class="rule"></div>
+    </header>
+
+    <section class="m-block">
+      <h2 class="m-head"><span class="tick"></span>Profile</h2>
+      <p class="lede">
+        Senior specialist consultant with <strong>12+ years</strong> bridging applied AI and
+        cybersecurity for regulated industries. I design and ship production LLM and data
+        platforms, then make sure they hold up under real-world threat and compliance pressure —
+        equally at home in an architecture review, a board update, or hands-on at the keyboard.
+      </p>
+    </section>
+
+    <section class="m-block">
+      <h2 class="m-head"><span class="tick"></span>Experience</h2>
+      <div class="timeline">
+        <article class="job">
+          <div class="job-top">
+            <div>
+              <h3 class="job-title">Principal Consultant — AI &amp; Security</h3>
+              <p class="job-co">Wenable Consulting AB · Gothenburg</p>
+            </div>
+            <span class="job-when">2021 — Present</span>
+          </div>
+          <ul class="job-pts">
+            <li>Led delivery of a retrieval-augmented LLM assistant for a Nordic bank, cutting analyst handling time by 38% while clearing internal model-risk review.</li>
+            <li>Built the secure MLOps backbone (Azure, Kubernetes, Terraform) now standard across three client engagements.</li>
+            <li>Acts as trusted advisor on AI governance and threat modelling for two listed clients.</li>
+          </ul>
+        </article>
+
+        <article class="job">
+          <div class="job-top">
+            <div>
+              <h3 class="job-title">Lead Security Architect</h3>
+              <p class="job-co">Nordsec Defence Systems</p>
+            </div>
+            <span class="job-when">2017 — 2021</span>
+          </div>
+          <ul class="job-pts">
+            <li>Owned the target security architecture for a critical-infrastructure SCADA modernisation programme.</li>
+            <li>Established the secure-by-design review gate adopted across the engineering organisation.</li>
+          </ul>
+        </article>
+
+        <article class="job">
+          <div class="job-top">
+            <div>
+              <h3 class="job-title">Senior Software Engineer</h3>
+              <p class="job-co">Volvo Group · Connected Solutions</p>
+            </div>
+            <span class="job-when">2013 — 2017</span>
+          </div>
+          <p class="job-desc">
+            Built streaming data pipelines and anomaly-detection services for a connected-vehicle
+            fleet of 400k+ units across Kafka, Go and early ML tooling.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="m-block">
+      <h2 class="m-head"><span class="tick"></span>Selected assignments</h2>
+      <div class="assigns">
+        <div class="acard">
+          <h4>LLM assistant — Nordic bank</h4>
+          <div class="acard-meta">AI · 14 months</div>
+          <p>Production RAG platform with full model-risk governance and audit trail.</p>
+        </div>
+        <div class="acard">
+          <h4>Threat model — energy utility</h4>
+          <div class="acard-meta">Cyber · 6 months</div>
+          <p>End-to-end OT/IT threat modelling and a prioritised hardening roadmap.</p>
+        </div>
+        <div class="acard">
+          <h4>Data platform — medtech scale-up</h4>
+          <div class="acard-meta">Platform · 9 months</div>
+          <p>Snowflake + streaming architecture and the DevEx around it.</p>
+        </div>
+        <div class="acard">
+          <h4>AI governance — public sector</h4>
+          <div class="acard-meta">Advisory · ongoing</div>
+          <p>Framework aligning model deployment with the EU AI Act.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="m-block">
+      <h2 class="m-head"><span class="tick"></span>Education</h2>
+      <div class="edu">
+        <div class="edu-row">
+          <div>
+            <p class="deg">M.Sc. Computer Science &amp; Engineering</p>
+            <p class="sch">Chalmers University of Technology, Gothenburg</p>
+          </div>
+          <span class="yr">2011 — 2013</span>
+        </div>
+        <div class="edu-row">
+          <div>
+            <p class="deg">B.Sc. Computer Science</p>
+            <p class="sch">University of Gothenburg</p>
+          </div>
+          <span class="yr">2008 — 2011</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+</div>
+
+<div class="editbar">
+  <span>Drag a photo onto the headshot · Click any text to edit · Print or <b>Save as PDF</b> for A4 output</span>
+</div>
+
+<script src="cv/image-slot.js"></script>
+</body>
+</html>

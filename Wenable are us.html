@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Wenable are us — the team behind the network · Wenable Consulting AB</title>
+<link rel="stylesheet" href="assets/wenable.css">
+<style>
+/* Quick facts strip on hero (shared pattern with For Consultants) */
+.fact-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  margin-top: 96px;
+  padding-top: 32px;
+  border-top: 1px solid var(--line);
+}
+.fact-strip .fact { padding-right: 24px; border-right: 1px solid var(--line); }
+.fact-strip .fact:last-child { border-right: 0; }
+.fact-strip .fact-k { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; }
+.fact-strip .fact-k .accent { color: var(--orange); }
+.fact-strip .fact-v { font-size: 12px; color: var(--muted); margin-top: 6px; letter-spacing: 0.06em; }
+
+/* TEAM GRID */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+.member {
+  position: relative;
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  overflow: hidden;
+  transition: border-color .25s, background .25s, transform .25s;
+}
+.member::after {
+  content: "";
+  position: absolute; left: 0; right: 0; top: 0;
+  height: 3px; background: var(--orange);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .35s ease;
+  z-index: 3;
+}
+.member:hover { border-color: var(--line-2); background: var(--bg-3); transform: translateY(-4px); }
+.member:hover::after { transform: scaleX(1); }
+
+/* portrait placeholder — drop a real photo in here */
+.member-photo {
+  aspect-ratio: 4 / 5;
+  position: relative;
+  display: grid; place-items: center;
+  border-bottom: 1px solid var(--line);
+  background:
+    repeating-linear-gradient(135deg, rgba(255,255,255,0.05) 0 8px, transparent 8px 18px),
+    linear-gradient(160deg, var(--bg-3), var(--bg));
+}
+.member-photo .ph {
+  font-family: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+  font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--muted);
+}
+.member-tag {
+  position: absolute; top: 14px; left: 14px;
+  font-size: 10px; letter-spacing: 0.2em; font-weight: 700;
+  color: var(--bg); background: var(--orange);
+  padding: 4px 9px;
+}
+.member-tag.line {
+  background: transparent; color: var(--orange);
+  border: 1px solid var(--orange);
+}
+.member-body { padding: 22px 22px 26px; }
+.member-name { font-size: 19px; line-height: 1.2; letter-spacing: -0.01em; margin-bottom: 7px; }
+.member-role { font-size: 13px; color: var(--orange); font-weight: 600; }
+.member-focus {
+  font-size: 11px; color: var(--muted);
+  letter-spacing: 0.14em; text-transform: uppercase;
+  margin-top: 14px; padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+
+/* hint banner — these are placeholders */
+.ph-note {
+  margin-top: 28px;
+  display: inline-flex; align-items: center; gap: 12px;
+  font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--muted);
+  border: 1px dashed var(--line-2);
+  padding: 10px 16px;
+}
+.ph-note .dot { width: 6px; height: 6px; background: var(--orange); transform: skewX(-22deg); }
+
+@media (max-width: 960px) {
+  .fact-strip { grid-template-columns: repeat(2, 1fr); }
+  .team-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px) {
+  .team-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="site-bg" aria-hidden="true">
+  <canvas id="bg-canvas"></canvas>
+  <div class="bg-glow"></div>
+  <div class="bg-grid"></div>
+</div>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="index.html" class="logo-link" aria-label="Wenable Consulting AB — home">
+      <img src="assets/wenable-logo-full.png" alt="Wenable Consulting AB" class="logo-full">
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="For Clients.html" class="auth-gated" data-sv="Våra tjänster">Our Services</a>
+      <a href="For Consultants.html" class="auth-gated" data-sv="För specialister">For Specialists</a>
+      <a href="assignments.html" data-sv="Uppdrag">Assignments</a>
+      <a href="Wenable are us.html" class="auth-gated" data-sv="Wenable är vi">Wenable are us</a>
+      <a href="mailto:hello&#64;wenable.se" data-sv="Kontakt">Contact</a>
+    </nav>
+    <div class="nav-meta">
+      <span class="pulse" aria-hidden="true"></span>
+      <span data-sv="Göteborg">Gothenburg</span>
+      <div class="lang-switch" role="group" aria-label="Language / Språk">
+        <button type="button" data-lang-btn="sv">SV</button>
+        <button type="button" data-lang-btn="en">EN</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="wrap hero-content">
+    <div class="hero-eyebrow"><span class="dot"></span><span data-sv="Wenable är vi · Teamet bakom nätverket">Wenable are us · The team behind the network</span></div>
+    <h1 data-sv="Wenable är vi —<br/> människorna bakom<br/> <span class=&quot;accent&quot;>nätverket</span>.<span class=&quot;slash&quot; aria-hidden=&quot;true&quot;></span>">
+      Wenable are us —<br/>
+      the people behind<br/>
+      <span class="accent">the network</span>.<span class="slash" aria-hidden="true"></span>
+    </h1>
+    <p class="hero-lede" data-sv="Ett litet partnerteam som driver två specialistgillen. Namngivna ansikten, riktigt ansvar – personerna du faktiskt arbetar med när du anlitar Wenable.">
+      A small partner team running two specialist guilds. Named faces, real
+      accountability — the people you actually work with when you hire Wenable.
+    </p>
+    <div class="ribbon-row" aria-hidden="true">
+      <span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span>
+    </div>
+    <div class="fact-strip">
+      <div class="fact">
+        <div class="fact-k"><span class="accent">10</span></div>
+        <div class="fact-v" data-sv="I kärnteamet">In the core team</div>
+      </div>
+      <div class="fact">
+        <div class="fact-k"><span class="accent">~120</span></div>
+        <div class="fact-v" data-sv="Specialister i nätverket">Specialists in the network</div>
+      </div>
+      <div class="fact">
+        <div class="fact-k"><span class="accent">12+</span><span data-sv=" år median"> yrs median</span></div>
+        <div class="fact-v" data-sv="Erfarenhet i kärnteamet">Experience across the core team</div>
+      </div>
+      <div class="fact">
+        <div class="fact-k">AI · <span class="accent">SEC</span></div>
+        <div class="fact-v" data-sv="Två specialistgillen vi driver">Two specialist guilds we run</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="section" id="team">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow" data-sv="Kärnteamet">The core team</div>
+        <h2 class="mt-16" data-sv="Ansiktena du faktiskt arbetar med.">The faces you actually work with.</h2>
+      </div>
+      <p data-sv="Inga anonyma account managers. Partnerna sköter matchningen och de svåra samtalen; specialisterna gör arbetet. Det här är personerna bakom varje uppdrag vi tar.">
+        No anonymous account managers. The partners run the matching and the hard
+        conversations; the specialists do the work. These are the people behind every
+        assignment we take.
+      </p>
+    </div>
+
+    <div class="team-grid">
+      <!-- 01 -->
+      <article class="member">
+        <div class="member-photo"><span class="member-tag" data-sv="PARTNER">PARTNER</span><span class="ph" data-sv="PORTRÄTT">Portrait</span></div>
+        <div class="member-body">
+          <h3 class="member-name">Anders Holm</h3>
+          <div class="member-role" data-sv="Partner &amp; medgrundare">Partner &amp; Co-founder</div>
+          <div class="member-focus" data-sv="Kunder · partnerskap">Clients · partnerships</div>
+        </div>
+      </article>
+      <!-- 02 -->
+      <article class="member">
+        <div class="member-photo"><span class="member-tag" data-sv="PARTNER">PARTNER</span><span class="ph" data-sv="PORTRÄTT">Portrait</span></div>
+        <div class="member-body">
+          <h3 class="member-name">Maja Sandberg</h3>
+          <div class="member-role" data-sv="Partner &amp; medgrundare">Partner &amp; Co-founder</div>
+          <div class="member-focus" data-sv="Nätverk · leverans">Network · delivery</div>
+        </div>
+      </article>
+      <!-- 03 -->
+      <article class="member">
+        <div class="member-photo"><span class="member-tag" data-sv="AI">AI</span><span class="ph" data-sv="PORTRÄTT">Portrait</span></div>
+        <div class="member-body">
+          <h3 class="member-name">Priya Nair</h3>
+          <div class="member-role" data-sv="Principal AI-ingenjör">Principal AI Engineer</div>
+          <div class="member-focus" data-sv="Tillämpad ML · LLM-system">Applied ML · LLM systems</div>
+        </div>
+      </article>
+      <!-- 04 -->
+      <article class="member">
+        <div class="member-photo"><span class="member-tag" data-sv="AI">AI</span><span class="ph" data-sv="PORTRÄTT">Portrait</span></div>
+        <div class="member-body">
+          <h3 class="member-name">Oskar Lind</h3>
+          <div class="member-role" data-sv="ML-plattformsledare">ML Platform Lead</div>
+          <div class="member-focus" data-sv="MLOps · plattform">MLOps · platform</div>
+        </div>
+      </article>
+      <!-- 05 -->
+      <article class="member">
+        <div class="member-photo"><span class="member-tag" data-sv="SÄK">SEC</span><span class="ph" data-sv="PORTRÄTT">Portrait</span></div>
+        <div class="member-body">
+          <h3 class="member-name">Elin Dahl</h3>
+          <div class="member-role" data-sv="Säkerhetsarkitekt">Security Architect</div>
+          <div class="member-focus" data-sv="Molnsäkerhet · styrning">Cloud security · governance</div>
+        </div>
+      </article>
+      <!-- 06 -->
+      <article class="member">
+        <div class="member-photo"><span class="member-tag" data-sv="SÄK">SEC</span><span class="ph" data-sv="PORTRÄTT">Portrait</span></div>
+        <div class="member-body">
+          <h3 class="member-name">Daniel Frost</h3>
+          <div class="member-role" data-sv="Red team-ledare">Red Team Lead</div>
+          <div class="member-focus" data-sv="Offensiv · red team">Offensive · red team</div>
+        </div>
+      </article>
+      <!-- 07 -->
+      <article class="member">
+        <div class="member-photo"><span class="member-tag line" data-sv="ING">ENG</span><span class="ph" data-sv="PORTRÄTT">Portrait</span></div>
+        <div class="member-body">
+          <h3 class="member-name">Yusuf Demir</h3>
+          <div class="member-role" data-sv="Senior dataingenjör">Senior Data Engineer</div>
+          <div class="member-focus" data-sv="Datapipelines · plattform">Data pipelines · platform</div>
+        </div>
+      </article>
+      <!-- 08 -->
+      <article class="member">
+        <div class="member-photo"><span class="member-tag" data-sv="AI">AI</span><span class="ph" data-sv="PORTRÄTT">Portrait</span></div>
+        <div class="member-body">
+          <h3 class="member-name">Hanna Ek</h3>
+          <div class="member-role" data-sv="GenAI- &amp; utvärderingsspecialist">GenAI &amp; Evaluation Specialist</div>
+          <div class="member-focus" data-sv="GenAI · utvärdering">GenAI · evaluation</div>
+        </div>
+      </article>
+      <!-- 09 -->
+      <article class="member">
+        <div class="member-photo"><span class="member-tag" data-sv="SÄK">SEC</span><span class="ph" data-sv="PORTRÄTT">Portrait</span></div>
+        <div class="member-body">
+          <h3 class="member-name">Marco Rossi</h3>
+          <div class="member-role" data-sv="Molnsäkerhetsingenjör">Cloud Security Engineer</div>
+          <div class="member-focus" data-sv="Molnsäkerhet · IAM">Cloud security · IAM</div>
+        </div>
+      </article>
+      <!-- 10 -->
+      <article class="member">
+        <div class="member-photo"><span class="member-tag line" data-sv="DRIFT">OPS</span><span class="ph" data-sv="PORTRÄTT">Portrait</span></div>
+        <div class="member-body">
+          <h3 class="member-name">Linnéa Ström</h3>
+          <div class="member-role" data-sv="Leverans- &amp; personalansvarig">Delivery &amp; People Lead</div>
+          <div class="member-focus" data-sv="Bemanning · matchning">Staffing · matching</div>
+        </div>
+      </article>
+    </div>
+
+    <div class="ph-note"><span class="dot" aria-hidden="true"></span><span data-sv="Platshållare — byt ut namn, roller och porträtt mot riktiga teammedlemmar">Placeholders — swap names, roles and portraits for real team members</span></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-strip" id="join">
+  <div class="wrap cta-strip-inner">
+    <div>
+      <div class="eyebrow" data-sv="Vill du arbeta med oss?">Want to work with us?</div>
+      <h2 class="mt-16 mw-720" data-sv="Säg hej — du möter en riktig person, inte en account manager.">
+        Say hello — you'll meet a real person, not an account manager.
+      </h2>
+      <p class="mt-16 mw-560" data-sv="Anlitar du en specialist eller vill du gå med i nätverket? Skicka en rad så pratar en partner med dig samma vecka.">
+        Hiring a specialist, or want to join the network? Send a note and a partner
+        will talk to you the same week.
+      </p>
+    </div>
+    <div class="cta-actions">
+      <a class="btn btn-primary" href="mailto:hello&#64;wenable.se">hello&#64;wenable.se <span class="arr">→</span></a>
+      <a class="btn btn-ghost" href="For Consultants.html" data-sv="Gå med i nätverket">Join the network</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-blurb">
+        <a href="index.html" class="logo-link"><img src="assets/wenable-logo-full.png" alt="Wenable Consulting AB" class="logo-full small"></a>
+        <p data-sv="Ett specialistgille för seniora konsulter inom AI, cybersäkerhet och angränsande ingenjörsdiscipliner.">
+          A specialist guild for senior consultants in AI, cybersecurity and adjacent
+          engineering disciplines.
+        </p>
+      </div>
+      <div>
+        <h4 data-sv="Företaget">Company</h4>
+        <ul>
+          <li><a href="Wenable are us.html" data-sv="Wenable är vi">Wenable are us</a></li>
+          <li><a href="For Clients.html" data-sv="För kunder">For clients</a></li>
+          <li><a href="For Consultants.html" data-sv="För konsulter">For consultants</a></li>
+          <li><a href="assignments.html" data-sv="Öppna uppdrag">Open assignments</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 data-sv="Övrigt">Other</h4>
+        <ul>
+          <li><a href="index.html" data-sv="Hem">Home</a></li>
+          <li><a href="#team" data-sv="Kärnteamet">Core team</a></li>
+          <li><a href="#">LinkedIn</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 data-sv="Kontakt">Contact</h4>
+        <div class="contact">
+          <div class="name" data-sv="Göteborgskontoret">Gothenburg office</div>
+          <div class="role" data-sv="Partners">Partners</div>
+          <a href="mailto:hello&#64;wenable.se">hello&#64;wenable.se</a>
+          <a href="tel:+4631123456">+46 31 123 45 6</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <div data-sv="© 2026 Wenable Consulting AB. Med ensamrätt. Org.nr 559571-3164">© 2026 Wenable Consulting AB. All rights reserved. Org. nr 559571-3164</div>
+      <div class="fb-links">
+        <a href="#" data-sv="Integritet">Privacy</a>
+        <a href="#" data-sv="Villkor">Terms</a>
+        <a href="#" data-sv="Uppförandekod">Code of conduct</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/i18n.js"></script>
+<script src="assets/bg-network.js"></script>
+<script src="assets/admin.js"></script>
+
+</body>
+</html>

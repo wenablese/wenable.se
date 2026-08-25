@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self' https://*.supabase.co wss://*.supabase.co; base-uri 'self'; form-action 'self'; frame-ancestors 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>För kunder — Wenable Consulting AB</title>
+<link rel="stylesheet" href="assets/wenable.css">
+<style>
+.audience-bar {
+  background: var(--bg-2);
+  border-bottom: 1px solid var(--line);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.audience-bar .wrap {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: 10px; padding-bottom: 10px;
+}
+.audience-bar .ab-now { color: var(--orange); font-weight: 600; }
+.audience-bar a { color: var(--muted-2); transition: color .2s; }
+.audience-bar a:hover { color: var(--orange); }
+.audience-bar .ab-switch { display: inline-flex; align-items: center; gap: 8px; }
+</style>
+</head>
+<body>
+
+<div class="site-bg" aria-hidden="true">
+  <canvas id="bg-canvas"></canvas>
+  <div class="bg-glow"></div>
+  <div class="bg-grid"></div>
+</div>
+
+<!-- Audience bar -->
+<div class="audience-bar">
+  <div class="wrap">
+    <span><span class="ab-now" data-sv="Visar: För kunder">Viewing: For clients</span></span>
+    <a href="For Consultants.html" class="ab-switch" data-sv="Är du konsult? Byt vy <span class=&quot;arr&quot;>→</span>">Are you a consultant? Switch view <span class="arr">→</span></a>
+  </div>
+</div>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="index.html" class="logo-link" aria-label="Wenable Consulting AB — home">
+      <img src="assets/wenable-logo-full.png" alt="Wenable Consulting AB" class="logo-full">
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="For Clients.html" class="auth-gated" data-sv="Våra tjänster">Our Services</a>
+      <a href="For Consultants.html" class="auth-gated" data-sv="För specialister">For Specialists</a>
+      <a href="assignments.html" data-sv="Uppdrag">Assignments</a>
+      <a href="Wenable are us.html" class="auth-gated" data-sv="Wenable är vi">Wenable are us</a>
+      <a href="mailto:hello&#64;wenable.se" data-sv="Kontakt">Contact</a>
+    </nav>
+    <div class="nav-meta">
+      <span class="pulse" aria-hidden="true"></span>
+      <span data-sv="Göteborg">Gothenburg</span>
+      <div class="lang-switch" role="group" aria-label="Language / Språk">
+        <button type="button" data-lang-btn="sv">SV</button>
+        <button type="button" data-lang-btn="en">EN</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="wrap hero-content">
+    <div class="hero-eyebrow"><span class="dot"></span><span data-sv="För kunder · Specialister inom AI &amp; cybersäkerhet · Göteborg">For clients · AI &amp; cybersecurity specialists · Gothenburg</span></div>
+    <h1 data-sv="Specialistkonsulter<br/> för problemen<br/> <span class=&quot;accent&quot;>generalister inte</span> kan lösa.<span class=&quot;slash&quot; aria-hidden=&quot;true&quot;></span>">
+      Specialist consultants<br/>
+      for the problems<br/>
+      <span class="accent">generalists can't</span> solve.<span class="slash" aria-hidden="true"></span>
+    </h1>
+    <p class="hero-lede" data-sv="Wenable är ett kurerat nätverk av seniora konsulter inom AI och cybersäkerhet. Namngivna specialister, verkligt djup, säkerhetsprövade och redo för NDA – för arbetet där kraven på personerna som utför det är icke förhandlingsbara.">
+      Wenable is a curated network of senior consultants in AI and cybersecurity. Named
+      specialists, real depth, cleared and NDA-ready — for the work where the standard
+      for the people on it is non-negotiable.
+    </p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="#contact" data-sv="Inled ett samtal <span class=&quot;arr&quot;>→</span>">Start a conversation <span class="arr">→</span></a>
+      <a class="btn btn-ghost" href="#expertise" data-sv="Se expertisområden">See expertise areas</a>
+    </div>
+    <div class="ribbon-row" aria-hidden="true">
+      <span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span>
+    </div>
+    <div class="hero-meta">
+      <div class="stat"><div class="k"><span class="accent">AI</span> &amp; ML</div><div class="v" data-sv="Tillämpad forskning, MLOps, utvärdering">Applied research, MLOps, evaluation</div></div>
+      <div class="stat"><div class="k" data-sv="<span class=&quot;accent&quot;>Cyber</span>säkerhet"><span class="accent">Cyber</span>security</div><div class="v" data-sv="Offensiv, defensiv, styrning">Offensive, defensive, governance</div></div>
+      <div class="stat"><div class="k" data-sv="<span class=&quot;accent&quot;>12</span>+ år"><span class="accent">12</span>+ yrs</div><div class="v" data-sv="Median konsulterfarenhet">Median consultant experience</div></div>
+      <div class="stat"><div class="k" data-sv="Norden &amp; <span class=&quot;accent&quot;>EU</span>">Nordics &amp; <span class="accent">EU</span></div><div class="v" data-sv="Säkerhetsprövade, kan vara på plats">Cleared, on-site capable</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERTISE -->
+<section class="section" id="expertise">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow" data-sv="Expertisområden">Expertise areas</div>
+        <h2 class="mt-16" data-sv="Två discipliner vi lever i. Ingenjörsdjup runt dem.">Two practices we live in. Engineering depth around them.</h2>
+      </div>
+      <p data-sv="AI och cybersäkerhet är där våra seniora konsulter tillbringar sina karriärer – inte en sida i en pitch. Runt dem håller vi det ingenjörs-, data- och arkitekturdjup som gör att specialistarbetet faktiskt landar i produktion.">
+        AI and cybersecurity are where our senior consultants spend their careers — not a
+        page on a deck. Around them, we keep the engineering, data and architecture depth
+        that makes the specialist work actually land in production.
+      </p>
+    </div>
+    <div class="expertise-grid">
+      <article class="expertise lead">
+        <div class="expertise-head">
+          <div class="expertise-num">PRACTICE / 01</div>
+          <div class="expertise-mark">AI</div>
+        </div>
+        <h3 data-sv="Artificiell intelligens &amp; tillämpad ML">Artificial intelligence &amp; applied ML</h3>
+        <p data-sv="Från tillämpad forskning till produktion: modellval, utvärderingsramverk, retrieval- och agentarkitekturer, MLOps och den styrning som faktiskt låter dig driftssätta. Specialister som levererat modeller – inte bara bildspel om dem.">
+          From applied research to production: model selection, evaluation harnesses, retrieval
+          and agent architectures, MLOps and the governance that lets you actually deploy.
+          Specialists who've shipped models, not just slide decks about them.
+        </p>
+        <ul class="expertise-list">
+          <li data-sv="LLM-system, RAG, agenter och utvärderingspipelines">LLM systems, RAG, agents and evaluation pipelines</li>
+          <li data-sv="Tillämpad ML, prognos, datorseende, rekommendationssystem">Applied ML, forecasting, computer vision, recommender systems</li>
+          <li data-sv="MLOps, modellivscykel och plattformsteknik">MLOps, model lifecycle and platform engineering</li>
+          <li data-sv="Beredskap för EU:s AI-förordning, modellrisk och kvalitetssäkring">EU AI Act readiness, model risk and assurance</li>
+        </ul>
+      </article>
+
+      <article class="expertise lead">
+        <div class="expertise-head">
+          <div class="expertise-num">PRACTICE / 02</div>
+          <div class="expertise-mark">SEC</div>
+        </div>
+        <h3 data-sv="Cybersäkerhet &amp; cyberresiliens">Cybersecurity &amp; cyber resilience</h3>
+        <p data-sv="Offensivt, defensivt och styrningsarbete, drivet av specialister med meriterna att verka i reglerade och säkerhetsklassade miljöer. Vi säkrar det vi bygger och bryter det som behöver brytas – båda med samma allvar.">
+          Offensive, defensive and governance work, run by specialists with the credentials
+          to operate in regulated and cleared environments. We secure what we build and break
+          what needs breaking — both with the same seriousness.
+        </p>
+        <ul class="expertise-list">
+          <li data-sv="Red teaming, penetrationstester, hotmodellering">Red teaming, penetration testing, threat modelling</li>
+          <li data-sv="Moln- och identitetssäkerhet, zero trust-arkitektur">Cloud and identity security, zero-trust architecture</li>
+          <li data-sv="Detektionsteknik, incidenthantering, SOC-lyft">Detection engineering, incident response, SOC uplift</li>
+          <li data-sv="Implementering av NIS2, DORA, ISO 27001 och CRA">NIS2, DORA, ISO 27001 and CRA implementation</li>
+        </ul>
+      </article>
+
+      <article class="expertise">
+        <div class="expertise-num" data-sv="ANGRÄNSANDE">ADJACENT</div>
+        <h3 data-sv="Mjukvaru- &amp; verifieringsteknik">Software &amp; verification engineering</h3>
+        <p data-sv="När specialistarbetet måste bevisas, inte bara levereras – seniora mjukvaru- och verifieringsingenjörer som bygger det och visar att det håller.">
+          When the specialist work has to be proven, not just shipped — senior software and
+          verification engineers who build it and demonstrate it holds.
+        </p>
+        <div class="service-tags">
+          <span class="tag" data-sv="Skräddarsydd mjukvara">Custom software</span>
+          <span class="tag" data-sv="Verifiering &amp; validering">Verification &amp; validation</span>
+          <span class="tag" data-sv="Testautomation">Test automation</span>
+        </div>
+      </article>
+
+      <article class="expertise">
+        <div class="expertise-num" data-sv="ANGRÄNSANDE">ADJACENT</div>
+        <h3 data-sv="Data- &amp; plattformsteknik">Data &amp; platform engineering</h3>
+        <p data-sv="Marken som AI- och säkerhetsarbetet vilar på – dataplattformar, strömning, molnarkitektur och den utvecklarupplevelse som håller ihop dem.">
+          The ground the AI and security work runs on — data platforms, streaming, cloud
+          architecture and the developer experience that holds them together.
+        </p>
+        <div class="service-tags">
+          <span class="tag" data-sv="Dataplattformar">Data platforms</span>
+          <span class="tag" data-sv="Moln">Cloud</span>
+          <span class="tag" data-sv="Strömning">Streaming</span>
+          <span class="tag">DevEx</span>
+        </div>
+      </article>
+
+      <article class="expertise">
+        <div class="expertise-num" data-sv="ANGRÄNSANDE">ADJACENT</div>
+        <h3 data-sv="Arkitektur &amp; teknisk rådgivning">Architecture &amp; technical advisory</h3>
+        <p data-sv="Oberoende seniora arkitekter för stunderna som spelar roll – leverantörsval, målarkitektur, en andra bedömning av förslaget som redan ligger på ditt bord.">
+          Independent senior architects for the moments that matter — vendor selection, target
+          architecture, second opinions on the proposal already on your desk.
+        </p>
+        <div class="service-tags">
+          <span class="tag" data-sv="Målarkitektur">Target arch</span>
+          <span class="tag" data-sv="Leverantörsgranskning">Vendor review</span>
+          <span class="tag" data-sv="Förnyad bedömning">Second opinion</span>
+        </div>
+      </article>
+
+      <article class="expertise">
+        <div class="expertise-num" data-sv="ANGRÄNSANDE">ADJACENT</div>
+        <h3 data-sv="Projekt- &amp; interimsledning">Project &amp; interim management</h3>
+        <p data-sv="Seniora leverans- och interimsledare som håller ordning på omfattning, risk och tidplan – och kliver in i rollen när den måste fyllas direkt.">
+          Senior delivery and interim leads who hold the line on scope, risk and timeline —
+          and step into the role itself when you need it filled now.
+        </p>
+        <div class="service-tags">
+          <span class="tag" data-sv="Leveransledning">Delivery lead</span>
+          <span class="tag" data-sv="Interimsroller">Interim roles</span>
+          <span class="tag">PMO</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- CLIENTS -->
+<section class="clients-section">
+  <div class="wrap">
+    <div class="eyebrow" data-sv="Utvalda kunder &amp; partners">Selected clients &amp; partners</div>
+    <div class="clients-row">
+      <div class="client">NORDKAP</div>
+      <div class="client">VESTRA</div>
+      <div class="client">FYRTAL</div>
+      <div class="client">KOMPAS&middot;IO</div>
+      <div class="client">LINDQVIST</div>
+      <div class="client">ALMA-9</div>
+    </div>
+  </div>
+</section>
+
+<!-- APPROACH -->
+<section class="section" id="approach">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow" data-sv="Så arbetar vi">How we work</div>
+        <h2 class="mt-16" data-sv="Specialister i din miljö, på problemet som betyder något.">Specialists in your environment, on the problem that matters.</h2>
+      </div>
+      <p data-sv="Vi driver inga pyramider och vi levererar inga powerpoints med en bemanningsbänk på köpet. Uppdrag byggs kring den namngivna specialisten eller specialisterna som gör arbetet – anpassade efter problemet, inte efter ett debiteringsmål.">
+        We don't run pyramids and we don't ship powerpoints with a bench attached. Engagements
+        are built around the named specialist or specialists doing the work — sized to the
+        problem, not to a billable target.
+      </p>
+    </div>
+
+    <div class="process">
+      <div class="step">
+        <h3 data-sv="Avgränsa">Scope</h3>
+        <p data-sv="En kort förstudie för att definiera problemet, framgångskriterierna, ramarna och den namngivna specialist som ska leda arbetet. Skala bort det som inte är värt att göra.">
+          A short discovery to define the problem, the success criteria, the constraints and
+          the named specialist who'll lead the work. Cut what isn't worth doing.
+        </p>
+        <div class="step-tags">
+          <span class="tag" data-sv="Förstudie">Discovery</span>
+          <span class="tag" data-sv="Acceptanskriterier">Acceptance criteria</span>
+          <span class="tag" data-sv="Specialistmatchning">Specialist match</span>
+        </div>
+      </div>
+      <div class="step">
+        <h3 data-sv="Genomför">Engage</h3>
+        <p data-sv="Specialisten arbetar i din miljö, med dina verktyg, enligt din säkerhetsmodell. Veckovisa avstämningar, transparent förbrukning och en partner som sponsor på vår sida hela vägen.">
+          The specialist works inside your environment, on your tools, to your security model.
+          Weekly checkpoints, transparent burn, a partner sponsor on our side throughout.
+        </p>
+        <div class="step-tags">
+          <span class="tag" data-sv="Inbäddad">Embedded</span>
+          <span class="tag" data-sv="Veckovisa demos">Weekly demos</span>
+          <span class="tag" data-sv="Partnersponsor">Partner sponsor</span>
+        </div>
+      </div>
+      <div class="step">
+        <h3 data-sv="Lämna tillbaka">Hand back</h3>
+        <p data-sv="Resultat, kod, modeller, dokumentation och arbetssätten – in i era repon och era konton. Vi konstruerar inget beroende av oss.">
+          Findings, code, models, documentation and the ways of working — into your repos
+          and your accounts. We don't engineer dependence on us.
+        </p>
+        <div class="step-tags">
+          <span class="tag" data-sv="Dokumentation">Documentation</span>
+          <span class="tag" data-sv="Kunskapsöverföring">Enablement</span>
+          <span class="tag" data-sv="Ägs av er">Owned by you</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="spacer-120"></div>
+    <div class="feature reverse">
+      <div>
+        <div class="eyebrow" data-sv="Varför team väljer oss">Why teams choose us</div>
+        <h2 class="mt-16" data-sv="Namngivna specialister. Inga byten på vägen.">Named specialists. No bait-and-switch.</h2>
+        <p class="mt-24" data-sv="Du får konsulterna du mötte i pitchen – specialisterna som faktiskt äger problemet, inte deras juniorer med en kopia av bildspelet. Profiler vid namn, referenser på begäran, ingen pyramid bakom dem.">
+          You'll get the consultants you met in the pitch — the actual specialists who own the
+          problem, not their juniors with a copy of the deck. Profiles by name, references on
+          request, no pyramid behind them.
+        </p>
+        <ul class="feature-list">
+          <li data-sv="Profiler du väljer vid namn, med offentliga referenser">Profiles you choose by name, with public references</li>
+          <li data-sv="AI och cybersäkerhet ledd av erkända specialister">AI and cybersecurity led by recognised specialists</li>
+          <li data-sv="Säkerhetsprövade och redo för NDA i reglerade miljöer">Cleared and NDA-ready for regulated environments</li>
+          <li data-sv="Kod, modeller, infrastruktur och dokumentation ägs av er">Code, models, infra and documentation owned by you</li>
+        </ul>
+      </div>
+      <div class="feature-art art-process" aria-hidden="true">
+        <div class="step-card">
+          <div class="n">01</div>
+          <div class="t" data-sv="Specialistmatchning">Specialist match</div>
+          <div class="pct" data-sv="KLAR">DONE</div>
+        </div>
+        <div class="step-card">
+          <div class="n">02</div>
+          <div class="t" data-sv="Avgränsning &amp; åtkomst">Scoping &amp; access</div>
+          <div class="pct" data-sv="KLAR">DONE</div>
+        </div>
+        <div class="step-card active">
+          <div class="n">03</div>
+          <div class="t" data-sv="Specialistuppdrag">Specialist engagement</div>
+          <div class="pct">68%</div>
+        </div>
+        <div class="step-card">
+          <div class="n">04</div>
+          <div class="t" data-sv="Resultat &amp; granskning">Findings &amp; review</div>
+          <div class="pct" data-sv="I KÖ">QUEUED</div>
+        </div>
+        <div class="step-card">
+          <div class="n">05</div>
+          <div class="t" data-sv="Överlämning &amp; kunskapsöverföring">Handover &amp; enablement</div>
+          <div class="pct" data-sv="I KÖ">QUEUED</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ASSIGNMENTS TEASER -->
+<section class="section">
+  <div class="wrap">
+    <div class="feature">
+      <div>
+        <div class="eyebrow" data-sv="Utvalt arbete">Selected work</div>
+        <h2 class="mt-16" data-sv="Specialistarbete, beskrivet utan marknadsföringsfernissan.">Specialist work, written without the marketing varnish.</h2>
+        <p class="mt-24" data-sv="En kort titt på vad våra konsulter levererat – utvärderingsramverk för LLM, red team-uppdrag, omgörda detektioner, MLOps-plattformar – och specialisterna som ledde dem.">
+          A short look at what our consultants have shipped — LLM evaluation harnesses, red-team
+          engagements, detection rebuilds, MLOps platforms — and the specialists who led them.
+        </p>
+        <p data-sv="Du hittar ramarna vi arbetade under, vad som var viktigt och vad vi skulle göra annorlunda nästa gång. Profiler länkade där konsulten gärna nämns vid namn.">
+          You'll find the constraints we worked under, what mattered, and what we'd do
+          differently next time. Profiles linked where the consultant is happy to be named.
+        </p>
+        <ul class="feature-list">
+          <li data-sv="Fallstudier inom AI, cybersäkerhet och angränsande specialistarbete">Case studies in AI, cybersecurity and adjacent specialist work</li>
+          <li data-sv="Namngivna konsulter och djupet de tillförde">Named consultants and the depth they brought</li>
+          <li data-sv="Referenser från de tekniska ledare vi arbetade med">References from the technical leaders we worked with</li>
+          <li data-sv="Ärliga noteringar om vad som gjorde arbetet svårt">Honest notes on what made the work hard</li>
+        </ul>
+        <div class="mt-36">
+          <a class="btn btn-primary" href="assignments.html" data-sv="Se fallstudier <span class=&quot;arr&quot;>→</span>">See case studies <span class="arr">→</span></a>
+        </div>
+      </div>
+      <div class="feature-art art-tile" aria-hidden="true">
+        <svg viewBox="0 0 600 450" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <pattern id="dots" x="0" y="0" width="32" height="32" patternUnits="userSpaceOnUse">
+              <circle cx="2" cy="2" r="1" fill="rgba(255,255,255,0.12)"/>
+            </pattern>
+          </defs>
+          <rect width="600" height="450" fill="url(#dots)"/>
+          <g transform="translate(140, 120)">
+            <polygon points="0,0 50,0 90,210 60,210" fill="#F39019"/>
+            <polygon points="60,0 110,0 150,210 120,210" fill="#F39019" opacity="0.85"/>
+            <polygon points="110,0 160,0 200,210 170,210" fill="#F39019" opacity="0.55"/>
+            <polygon points="170,0 220,0 260,210 230,210" fill="#F39019" opacity="0.3"/>
+          </g>
+          <g transform="translate(440, 130)" fill="#fff">
+            <rect x="0" y="0" width="80" height="22" opacity="0.95"/>
+            <rect x="0" y="46" width="60" height="22" opacity="0.7"/>
+            <rect x="0" y="92" width="80" height="22" opacity="0.5"/>
+          </g>
+          <text x="40" y="400" fill="rgba(255,255,255,0.35)" font-family="Segoe UI, sans-serif" font-size="11" letter-spacing="2">FIG. 01 — ASSIGNMENT GRAPH</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" id="faq">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow" data-sv="Vanliga frågor">FAQ</div>
+        <h2 class="mt-16" data-sv="Raka svar på frågorna vi hör oftast.">Straight answers to the questions we hear most.</h2>
+      </div>
+      <p data-sv="Om din situation inte täcks här tar vi hellre ett 30-minuterssamtal än skickar en offert i blindo. Hör av dig – vi säger ärligt om vi är rätt match.">
+        If your situation isn't covered here, we'd rather have a 30-minute call than send a
+        proposal blind. Reach out — we'll tell you honestly whether we're the right fit.
+      </p>
+    </div>
+    <div class="faq-list">
+      <details class="faq-item" open>
+        <summary class="faq-q">
+          <span data-sv="Vilken sorts expertis täcker ni?">What kind of expertise do you cover?</span>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </summary>
+        <div class="faq-a" data-sv="AI och cybersäkerhet är våra två discipliner. Runt dem håller vi djupa bänkar inom data-, plattforms- och mjukvaruteknik, plus oberoende seniora arkitekter. Om ditt problem ligger i de zonerna och du behöver en erkänd specialist kan vi hjälpa till.">
+          AI and cybersecurity are our two practice areas. Around them we keep deep benches
+          in data, platform and software engineering, plus independent senior architects.
+          If your problem is in those zones and you need a recognised specialist, we can help.
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">
+          <span data-sv="Hur väljer ni konsulterna i ert nätverk?">How do you choose the consultants in your network?</span>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </summary>
+        <div class="faq-a" data-sv="Ett introsamtal med en partner, två tekniska referenser vi faktiskt ringer, och bevis på levererat specialistarbete – artiklar, föredrag, CVE:er, produktionssystem de lett. Vi håller oss små med flit; ribban är det som gör nätverket värdefullt för kunder.">
+          A partner intro call, two technical references we actually call, and proof of
+          shipped specialist work — papers, talks, CVEs, production systems they led.
+          We stay small on purpose; the bar is what makes the network valuable to clients.
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">
+          <span data-sv="Hur prissätter ni?">How do you price?</span>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </summary>
+        <div class="faq-a" data-sv="Specialisttid på löpande räkning med tydlig avgränsning och tak är vårt standardval. Fast pris för väldefinierade leveranser. Hur som helst ser du konsultens arvode, vår marginal och vad arbetet faktiskt kostar. Inga nivåspel.">
+          Specialist time-and-materials with a clear scope and ceiling is our default. Fixed
+          price for well-defined deliverables. Either way, you see the consultant's rate,
+          our margin, and what the work actually costs. No tier games.
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">
+          <span data-sv="Arbetar ni på plats? Säkerhetsklassade miljöer?">Do you work on-site? Cleared environments?</span>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </summary>
+        <div class="faq-a" data-sv="Ja – vi räknar med att vara på plats under åtminstone en del av varje uppdrag. En betydande andel av vårt cybersäkerhets- och AI-arbete sker i reglerade, känsliga eller säkerhetsklassade miljöer; bakgrundskontroller, NDA:er och signerade åtkomstavtal är rutin.">
+          Yes — we expect to be on-site for at least part of every engagement. A meaningful
+          share of our cybersecurity and AI work is in regulated, sensitive or cleared
+          environments; background checks, NDAs and signed access agreements are routine.
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">
+          <span data-sv="Äger vi koden, modellerna och resultaten?">Who owns the code, models and findings?</span>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </summary>
+        <div class="faq-a" data-sv="Ni gör det, alltid. Källkod, infrastruktur som kod, modellartefakter, utvärderingssviter, säkerhetsfynd och rapporter – levererade in i era repon och era konton som en del av uppdraget, inte vid slutet.">
+          You do, always. Source, infra-as-code, model artefacts, evaluation suites, security
+          findings and reports — delivered into your repos and your accounts as part of the
+          engagement, not at the end.
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">
+          <span data-sv="Får jag den namngivna specialisten, eller någon bakom?">Will I get the named specialist, or someone behind them?</span>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </summary>
+        <div class="faq-a" data-sv="Den namngivna. Profilerna är äkta; vi driver ingen pyramid. Om konsulten du mötte i pitchen inte kan fortsätta av någon anledning säger vi det omedelbart, och du väljer ersättaren – inte vi.">
+          The named one. Profiles are real; we don't run a pyramid. If the consultant you met
+          in the pitch can't continue for any reason, we tell you immediately and you choose
+          the replacement — not us.
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- CTA STRIP -->
+<section class="cta-strip" id="contact">
+  <div class="wrap cta-strip-inner">
+    <div>
+      <div class="eyebrow" data-sv="Kontakta oss">Get in touch</div>
+      <h2 class="mt-16 mw-720" data-sv="Berätta vad du behöver leverera – vi säger ärligt om vi kan hjälpa till.">
+        Tell us what you need to ship — we'll tell you honestly if we can help.
+      </h2>
+      <p class="mt-16 mw-560" data-sv="Ett 30-minuterssamtal räcker oftast för att veta om det är en match. Inga NDA:er för att inleda ett samtal, inga mallade bildspel.">
+        A 30-minute call is usually enough to know whether it's a fit. No NDAs to start a
+        conversation, no boilerplate decks.
+      </p>
+    </div>
+    <div class="cta-actions">
+      <a class="btn btn-primary" href="mailto:hello&#64;wenable.se">hello&#64;wenable.se <span class="arr">→</span></a>
+      <a class="btn btn-ghost" href="tel:+4631123456">+46 31 123 45 6</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-blurb">
+        <a href="index.html" class="logo-link"><img src="assets/wenable-logo-full.png" alt="Wenable Consulting AB" class="logo-full small"></a>
+        <p data-sv="Ingenjörsledd rådgivning inom AI och cybersäkerhet. Vi parar specialistkonsulter med ledningsgrupperna som faktiskt behöver dem.">
+          Engineering-led consulting in AI and cybersecurity. We pair specialist consultants
+          with the leadership teams who actually need them.
+        </p>
+      </div>
+      <div>
+        <h4 data-sv="För kunder">For clients</h4>
+        <ul>
+          <li><a href="#expertise" data-sv="Expertis">Expertise</a></li>
+          <li><a href="#approach" data-sv="Arbetssätt">Approach</a></li>
+          <li><a href="assignments.html" data-sv="Fallstudier">Case studies</a></li>
+          <li><a href="#faq" data-sv="Vanliga frågor">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 data-sv="Övrigt">Other</h4>
+        <ul>
+          <li><a href="For Consultants.html" data-sv="För konsulter">For consultants</a></li>
+          <li><a href="index.html" data-sv="Hem">Home</a></li>
+          <li><a href="#">LinkedIn</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 data-sv="Kontakt">Contact</h4>
+        <div class="contact">
+          <div class="name" data-sv="Göteborgskontoret">Gothenburg office</div>
+          <div class="role" data-sv="Partners">Partners</div>
+          <a href="mailto:hello&#64;wenable.se">hello&#64;wenable.se</a>
+          <a href="tel:+4631123456">+46 31 123 45 6</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <div data-sv="© 2026 Wenable Consulting AB. Med ensamrätt. Org.nr 559571-3164">© 2026 Wenable Consulting AB. All rights reserved. Org. nr 559571-3164</div>
+      <div class="fb-links">
+        <a href="#" data-sv="Integritet">Privacy</a>
+        <a href="#" data-sv="Villkor">Terms</a>
+        <a href="#" data-sv="Säkerhet">Security</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/i18n.js"></script>
+<script src="assets/bg-network.js"></script>
+<script src="assets/admin.js"></script>
+
+</body>
+</html>
