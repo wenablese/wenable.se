@@ -297,6 +297,8 @@
     stage.querySelectorAll('.assign-detail[data-custom="1"]').forEach(function (n) { n.remove(); });
 
     var items = loadAssignments();
+    // styr tomtillståndet: "välj ett uppdrag" vs "kommer snart" (CSS gör resten)
+    document.body.classList.toggle("wadm-has-assignments", items.length > 0);
     var anchor = $("h4", list); // insert rows right after the count header
     var loggedIn = isLoggedIn();
 

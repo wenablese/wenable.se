@@ -673,16 +673,11 @@ footer.foot {
 .assign-empty {
   text-align: left;
 }
-.assign-empty .ghost-grid {
-  margin-top: 24px;
-  display: grid; gap: 8px;
-}
-.assign-empty .ghost-grid .ghost {
-  height: 14px; background: rgba(255,255,255,0.04); width: 100%;
-}
-.assign-empty .ghost-grid .ghost:nth-child(2) { width: 80%; }
-.assign-empty .ghost-grid .ghost:nth-child(3) { width: 60%; }
-.assign-empty .ghost-grid .ghost:nth-child(4) { width: 40%; }
+/* Tomtillstånd: visa "kommer snart" tills admin.js bekräftar att uppdrag finns,
+   då sätts body.wadm-has-assignments och "välj ett uppdrag"-läget visas i stället. */
+.assign-empty .empty-haslist { display: none; }
+body.wadm-has-assignments .assign-empty .empty-haslist { display: block; }
+body.wadm-has-assignments .assign-empty .empty-nolist { display: none; }
 
 @media (max-width: 960px) {
   .assign-app { grid-template-columns: 1fr; }
@@ -894,18 +889,24 @@ footer.foot {
 
         <!-- DEFAULT / EMPTY STATE -->
         <article class="assign-detail default assign-empty">
-          <div class="d-eyebrow" data-sv="Öppna ett uppdrag">Open an assignment</div>
-          <h2 data-sv="Välj ett uppdrag i listan för att se briefen.">Pick an assignment from the list to see the brief.</h2>
-          <p class="d-lede" data-sv="Varje uppdrag är ett verkligt engagemang med en namngiven kund och en definierad omfattning. Du ser teamet du skulle gå med i, hur framgång ser ut, arvodesnivån och ett direkt sätt att ansöka eller dela med en kollega.">
-            Each assignment is a real engagement with a named client and a defined scope.
-            You'll see the team you'd join, what success looks like, the rate band, and a
-            direct way to apply or share with a colleague.
-          </p>
-          <div class="ghost-grid" aria-hidden="true">
-            <div class="ghost"></div>
-            <div class="ghost"></div>
-            <div class="ghost"></div>
-            <div class="ghost"></div>
+          <!-- Visas när det FINNS uppdrag (admin.js sätter body.wadm-has-assignments) -->
+          <div class="empty-haslist">
+            <div class="d-eyebrow" data-sv="Öppna ett uppdrag">Open an assignment</div>
+            <h2 data-sv="Välj ett uppdrag i listan för att se briefen.">Pick an assignment from the list to see the brief.</h2>
+            <p class="d-lede" data-sv="Varje uppdrag är ett verkligt engagemang med en namngiven kund och en definierad omfattning. Du ser teamet du skulle gå med i, hur framgång ser ut, arvodesnivån och ett direkt sätt att ansöka eller dela med en kollega.">
+              Each assignment is a real engagement with a named client and a defined scope.
+              You'll see the team you'd join, what success looks like, the rate band, and a
+              direct way to apply or share with a colleague.
+            </p>
+          </div>
+          <!-- Visas när det INTE finns några uppdrag ännu (standardläge) -->
+          <div class="empty-nolist">
+            <div class="d-eyebrow" data-sv="Uppdrag">Assignments</div>
+            <h2 data-sv="Nya uppdrag kommer inom kort.">New assignments are coming soon.</h2>
+            <p class="d-lede" data-sv="Vi lägger löpande upp nya uppdrag här. Titta gärna tillbaka snart – eller hör av dig om du vill bli kontaktad när något som passar dig dyker upp.">
+              We post new assignments here regularly. Check back soon — or get in touch if
+              you'd like us to reach out when something that fits comes up.
+            </p>
           </div>
           <h3 style="margin-top: 36px;" data-sv="Vad vi söker">What we look for</h3>
           <ul class="bullets">
