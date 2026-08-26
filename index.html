@@ -52,10 +52,10 @@ body {
   flex: 1;
   min-height: 100vh;
   display: flex;
-  align-items: center;
+  align-items: center;       /* fallback för äldre webbläsare */
+  align-items: safe center;  /* låg skärm: toppjustera i st.f. att svämma upp bakom menyn */
   justify-content: center;
   text-align: center;
-  overflow: hidden;
   isolation: isolate;
   padding: 120px 24px 80px;
 }
