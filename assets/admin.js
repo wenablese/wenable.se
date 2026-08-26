@@ -312,13 +312,11 @@
       /* list row */
       var row = el("a", { "class": "assign-row", "href": "#" + a.id, "data-custom": "1" });
       row.innerHTML =
-        '<div class="row-meta">' + esc(a.location) +
-          (a.duration ? ' <span class="sep">·</span> ' + esc(a.duration) : "") + '</div>' +
+        '<div class="row-meta">' + esc(a.location) + '</div>' +
         '<div class="row-title">' + esc(a.title) + '</div>' +
         '<div class="row-foot">' +
           '<span class="row-tag' + (filled ? " closed" : "") + '" data-sv="' + esc(statusSv + " · " + catSv) + '">' +
             esc(statusEn + " · " + catEn) + '</span>' +
-          (a.rate ? '<span class="row-rate">' + esc(a.rate) + '</span>' : '') +
         '</div>';
       if (anchor && anchor.nextSibling) list.insertBefore(row, anchor.nextSibling);
       else list.appendChild(row);
@@ -339,11 +337,9 @@
         (a.lede ? '<p class="d-lede">' + esc(a.lede) + '</p>' : '') +
         '<div class="d-grid">' +
           cell("Plats", "Location", a.location || "—") +
-          cell("Längd", "Duration", a.duration || "—") +
           cell("Kategori", "Category", catEn) +
           cell("Status", "Status", statusEn) +
           (a.start ? cell("Start", "Start", a.start) : "") +
-          (a.rate ? cell("Arvodesnivå", "Rate band", a.rate) : "") +
         '</div>' +
         (workHtml || tags ?
           '<div class="d-section">' +
@@ -434,15 +430,8 @@
             '<div><label for="wadm-loc" data-sv="Plats *">Location *</label>' +
               '<input class="wadm-input" id="wadm-loc" name="location" type="text" required ' +
                 'data-sv-attr-placeholder="t.ex. Göteborg · Hybrid" placeholder="e.g. Göteborg · Hybrid"></div>' +
-            '<div><label for="wadm-dur" data-sv="Längd">Duration</label>' +
-              '<input class="wadm-input" id="wadm-dur" name="duration" type="text" ' +
-                'data-sv-attr-placeholder="t.ex. 6 mån" placeholder="e.g. 6 mo"></div>' +
-          '</div>' +
-          '<div class="wadm-field row2">' +
             '<div><label for="wadm-start" data-sv="Start">Start</label>' +
               '<input class="wadm-input" id="wadm-start" name="start" type="text" placeholder="e.g. Q3 2026"></div>' +
-            '<div><label for="wadm-rate" data-sv="Arvodesnivå">Rate band</label>' +
-              '<input class="wadm-input" id="wadm-rate" name="rate" type="text" placeholder="e.g. 1 350 – 1 600 SEK/h"></div>' +
           '</div>' +
           '<div class="wadm-field">' +
             '<label for="wadm-lede" data-sv="Sammanfattning">Summary</label>' +
@@ -489,9 +478,7 @@
         category: f.category.value,
         status: f.status.value,
         location: loc,
-        duration: f.duration.value.trim(),
         start: f.start.value.trim(),
-        rate: f.rate.value.trim(),
         lede: f.lede.value.trim(),
         work: f.work.value.trim(),
         ref: f.ref.value.trim(),
@@ -551,9 +538,7 @@
     f.category.value = a.category || "it";
     f.status.value   = a.status   || "open";
     f.location.value = a.location || "";
-    f.duration.value = a.duration || "";
     f.start.value    = a.start    || "";
-    f.rate.value     = a.rate     || "";
     f.lede.value     = a.lede     || "";
     f.work.value     = a.work     || "";
     f.tags.value     = (a.tags || []).join(", ");
