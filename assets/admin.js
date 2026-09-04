@@ -280,7 +280,7 @@
      ===================================================================== */
   var CATS = {
     ai:    { en: "AI",    sv: "AI" },
-    cyber: { en: "Cyber", sv: "Cyber" },
+    cyber: { en: "CyberSecurity", sv: "CyberSecurity" },
     it:    { en: "IT",    sv: "IT" }
   };
 
