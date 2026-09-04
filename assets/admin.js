@@ -347,7 +347,7 @@
             (tags ? '<h3 data-sv="Fokusområden">Areas of focus</h3><div class="d-stack">' + tags + '</div>' : '') +
           '</div>' : '') +
         '<div class="assign-actions">' +
-          '<button type="button" class="btn btn-primary" data-sv="Ansök till detta uppdrag <span class=&quot;arr&quot;>→</span>">Apply for this assignment <span class="arr">→</span></button>' +
+          '<a class="btn btn-primary" href="mailto:management&#64;wenable.se?subject=' + encodeURIComponent(a.ref || a.title) + '" data-sv="Ansök till detta uppdrag <span class=&quot;arr&quot;>→</span>">Apply for this assignment <span class="arr">→</span></a>' +
           (a.ref ? '<span class="meta-side">REF · ' + esc(a.ref) + '</span>' : '') +
           (loggedIn ? '<button type="button" class="wadm-editbtn" data-wadm-edit="' + esc(a.id) + '" data-sv="Redigera">Edit</button>' : '') +
           (loggedIn ? '<button type="button" class="wadm-remove" data-wadm-del="' + esc(a.id) + '" data-sv="Ta bort uppdrag">Remove assignment</button>' : '') +
